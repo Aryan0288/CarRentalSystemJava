@@ -52,19 +52,19 @@ class Car {
 class Customer {
     private String name;
     private String id; // id proof adhar or pancard or voterid
-    private int phoneNumber;
+    private String phoneNumber;
     private String address;
 
-    // Customer(String name,String id, int phoneNumber,String address){
-    // this.name=name;
-    // this.id=id;
-    // this.phoneNumber=phoneNumber;
-    // this.address=address;
-    // }
-    Customer(String name, String id) {
-        this.name = name;
-        this.id = id;
+    Customer(String name,String id, String phoneNumber,String address){
+    this.name=name;
+    this.id=id;
+    this.phoneNumber=phoneNumber;
+    this.address=address;
     }
+    // Customer(String name, String id) {
+    //     this.name = name;
+    //     this.id = id;
+    // }
 
     public String getCustomerId() {
         return id;
@@ -74,7 +74,7 @@ class Customer {
         return name;
     }
 
-    public int getCustomerPhone() {
+    public String getCustomerPhone() {
         return phoneNumber;
     }
 
@@ -174,11 +174,18 @@ class CarRentalSystem {
                 System.out.println("\n== Return a Car ==\n");
                 System.out.println("Enter your name: ");
                 String customerName = sc.nextLine();
+                System.out.println("Enter your phone number: ");
+                String phoneNumber = sc.nextLine();
+                System.out.println("Enter your Address: ");
+                String Address = sc.nextLine();
 
                 System.out.println("\nAvailable Cars\n");
+                System.out.println("CarID " + " " +" "+ " Car Brand " +" "+ "  " + " CarModel ");
                 for (Car car : cars) {
                     if (car.getIsAvailable()) {
-                        System.out.println(car.getCarId() + " - " + car.getBrand() + " - " + car.getModel());
+                        System.out.print(car.getCarId()+" "+"  "+"  "+"  ");
+                        System.out.print(car.getBrand()+"  "+"  "+"  "+"  ");
+                        System.out.println(car.getModel()+"  "+"  "+"  "+"  ");
                     }
                 }
 
@@ -188,7 +195,7 @@ class CarRentalSystem {
                 int rentalDays = sc.nextInt();
                 sc.nextLine(); // consume new line
 
-                Customer newCustomer = new Customer(customerName, "CUS" + (customers.size() + 1));
+                Customer newCustomer = new Customer(customerName, "CUS" + (customers.size() + 1),phoneNumber,Address);
                 addCustomer(newCustomer);
 
                 Car selectedCar = null;
@@ -205,9 +212,11 @@ class CarRentalSystem {
                     System.out.println("\n==========Rental Information=============\n");
                     System.out.println("Customer ID: " + newCustomer.getCustomerId());
                     System.out.println("Customer Name: " + newCustomer.getCustomerName());
+                    System.out.println("Customer phoneNumber: " + newCustomer.getCustomerPhone());
+                    System.out.println("Customer Address: " + newCustomer.getCustomerAddress());
                     System.out.println("Car: " + selectedCar.getBrand() + " " + selectedCar.getModel());
                     System.out.println("Rentals Days: " + rentalDays);
-                    System.out.printf("TotalPrice: $%.2f%n ", totalPrice);
+                    System.out.printf("TotalPrice: %.2f%n ", totalPrice);
 
                     System.out.println("\nConfirmed Rental: (Y/N)\n");
                     String confirm = sc.nextLine();
@@ -246,14 +255,14 @@ class CarRentalSystem {
 
                     if (customer != null) {
                         returnCar(carToReturn);
-                        System.out.println("Car Returned Successfully by " + customer.getCustomerName());
+                        System.out.println("\nCar Returned Successfully by " + customer.getCustomerName()+"\n\n");
 
                     } else {
-                        System.out.println("Car was not rented or car information is missing");
+                        System.out.println("\nCar was not rented or car information is missing\n\n");
                     }
 
                 } else {
-                    System.out.println("Invalid car ID or car is not rented");
+                    System.out.println("Invalid car ID or car is not rented\n\n");
                 }
 
             } else if (choice == 3) {
